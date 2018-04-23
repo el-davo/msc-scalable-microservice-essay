@@ -20,7 +20,29 @@ The above image is an example of building a model with one variable, which predi
 \bar{y} = \frac{1}{n}\sum_{i=1}^n y_i
 \end{equation}
 
-Y hat is the predicted value of y. Beta 0 corresponds to to the intercept value. Sum of is iterating over the features denoted by k. k can be describes as the k co-efficient values for a feature.[EXPAND]
+Y hat is the predicted value of y. Beta 0 corresponds to to the intercept value. Sum of, is iterating over the features denoted by k. k can be described as the k co-efficient values for a feature.[EXPAND]
+
+\subsection*{Linear Regression Features}
+
+Linear regression works by finding a straight line relationship between a set of features (coefficients). Features could be anything from miles per gallon of a new car to the frequency of a cpu. One caveat with these features is that in linear regression they must be expressed numerically. For example if we have a feature x which denotes the gender of a human as either 'M', 'F'. We could can not input these values into our regression as they are not numeric. These values could not be used in our regression without being transformed. One of the methods of data transformation is called one hot encoding. 
+
+\subsection*{Feature Transformations}
+
+There are certain cases where a feature transformation is required. As mentioned earlier we would need one hot encoding to make sure our data is numeric. Using our example of a gender feature above, one hot encoding will take the string values 'M' and 'F' and convert them to numbers. Interestingly it will not replace our gender column, instead it will create 2 more features. We will end up with a new male and female feature encoded with a 1 for a true value and a 0 for a false value.
+
+[NEEDS IMAGE OF ONE HOT ENCODING]
+
+Transformations can be used to account for a non-linear relationship between our features and the predictor. Non linear relationships can be difficult to find, and usually relies on a deep understanding of the the data. Once we have this understanding we can start to ask questions such as, can the slope of
+the relationship between Xi and E(Y) be expected to have the same sign for all values of Xi. Should we expect the magnitude of the slope to increase as Xi increases, or should we expect
+the magnitude of the slope to decrease as Xi increases?\cite{7508191}
+
+\subsection*{Advantages of linear regression}
+
+Linear regression is a relatively simple to understand when compared to other prediction techniques such as deep neural networks.
+
+Predictor importance can be measured by its coefficients. For example if we have 10 coefficients it is possible to measure the importance of each feature towards to the final prediction. To measure this we can look at how large the coefficient is compared to the target variable
+
+We can apply certain transformations on our data to come up with 
 
 
 \subsection*{Least Squares}
