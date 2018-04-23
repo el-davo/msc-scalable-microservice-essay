@@ -4,13 +4,24 @@ Linear Regression is a common technique in the world of predictive analytics. On
 
 [INSERT IMAGE]
 
-The data is not perfect, there is often a source of noise, this could be network latency
+Is a supervised machine learning technique [EXPAND]
 
-y = mx + c
+The data is usually not perfect, there is often a source of noise, this could be network latency
+
+\begin{equation}
+    f(x) = mx+c
+\end{equation}
 
 This describes a straight line relationship, where y is the y axis variable and x is the x axis variable, the relationship between them is defined as m where m is the slope of the line. c is a constant or intercept where the line meets the y axis
 
-Is a supervised machine learning technique [EXPAND]
+The above image is an example of building a model with one variable, which predicts y based on the values of x using an intercept and slope values. More generally we will be fitting muliple co-efficients. Co-efficients means lots of different features. For example if we want to predict weather, then to make an accurate model we would probably need multiple features such as wind speed and atmospheric pressure.
+
+\begin{equation}
+\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i
+\end{equation}
+
+Y hat is the predicted value of y. Beta 0 corresponds to to the intercept value. Sum of is iterating over the features denoted by k. k can be describes as the k co-efficient values for a feature.[EXPAND]
+
 
 \subsection*{Least Squares}
 \subsection*{K Nearest Neighbours}
