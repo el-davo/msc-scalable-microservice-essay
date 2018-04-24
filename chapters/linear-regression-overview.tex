@@ -36,18 +36,50 @@ Transformations can be used to account for a non-linear relationship between our
 the relationship between Xi and E(Y) be expected to have the same sign for all values of Xi. Should we expect the magnitude of the slope to increase as Xi increases, or should we expect
 the magnitude of the slope to decrease as Xi increases?\cite{nonlinearRelationships}
 
+\subsection*{Residuals vs fits plot}
+
+One way to detect non linearity in a dataset is to use a residuals vs fits plot. It is a scatter plot of residuals on the y axis and fitted values (estimated responses) on the x axis. The plot is used to detect non-linearity, unequal error variances, and outliers \cite{residualsVsFitsPlot}. this residual plot may be used to check for violations in model assumptions particularly related to incorrect specification or presence of heteroscedasticity\cite{doi:10.1002/9781118625590.ch2}. Lets look at a simple linear regression model
+
+\[ Y = \beta_0 + \beta_1X + \epsilon \]
+
+The error terms are assumed to be normally distributed, homoscedastic(every value has the same variance) and are  independant of one another. If these assumtptions are correct than the observered residuals should be aproxamatly normally distributed with constant variants for all the X values.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5,width=100mm]{./images/plotfit-good.png}
+  \caption{Fit plot showing a good indication that the assumptions of our model are correct}
+  \label{fig:fitsplotgood}
+\end{figure}
+
+In figure \ref{fig:fitsplotgood} we can see that variablity is roughly the same for all the different values of X between the 2 red lines. There also does not appear to be much curvature or any other indications that there is a problem with our model. figure \ref{fig:fitsplotgood} gives us no indication that the assumptions of our model are false
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5,width=100mm]{./images/plotfit-good.png}
+  \caption{Fit plot showing a good indication that the assumptions of our model are correct}
+  \label{fig:fitsplotbad}
+\end{figure}
+
+[FIND A REAL IMAGE REFERENCE - https://www.youtube.com/watch?v=iMdtTCX2Q70]
+
+In figure \ref{fig:fitsplotbad} there are more odvious problems. The variants of the residuals increases with the x axis. This would be considered a violation of our constant variable assumption. One option to deal with this situation is to use a technique called weighted regression. However overall our model assumptions are incorrect for this model.
+
+\subsection*{Measuring Model Errors}
+
+
+
 \subsection*{Advantages of linear regression}
 
 Linear regression is a relatively simple to understand when compared to other prediction techniques such as deep neural networks.
 
-Predictor importance can be measured by its coefficients. For example if we have 10 coefficients it is possible to measure the importance of each feature towards to the final prediction. To measure this we can look at how large the coefficient is compared to the target variable
+Predictor importance can be measured by its coefficients. For example if we have 10 coefficients it is possible to measure the importance of each feature towards to the final prediction. To measure this we can look at how large the coefficient is compared to the target variable.
 
 We can apply certain transformations on our data to come up with 
 
 
 \subsection*{Least Squares}
 \subsection*{K Nearest Neighbours}
-\subsection*{Least Squares}
 \subsection*{Ridge Regression}
 \subsection*{Lasso Technique}
 
