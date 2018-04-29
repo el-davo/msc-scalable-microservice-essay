@@ -26,7 +26,7 @@ The producer has a number of configuration properties it can send along with the
 
 \subsection{Topics}
 
-All messages that enter the system are organized into topics. Only consumers that are listening to certain topics will receive the messages that were published to that topic. Topics are stored in brokers. They are stored as a log on the file-system.
+All messages that enter the system are organized into topics. Only consumers that are listening to certain topics will receive the messages that were published to that topic. Topics are stored in brokers. They are stored as a log on the file-system. Topics are divided into a number of partitions. Partitions can parallelize topics by splitting them across multiple brokers. Because each partition is on a separate machine, multiple consumers can access them without throughput becoming a bottleneck. Messages within a partition have an identifier called an offset. This offset is used to uniquely identify each message. All messages stored within a partition are immutable.
 
 \subsection{Consumers}
 
