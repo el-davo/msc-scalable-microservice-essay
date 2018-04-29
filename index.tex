@@ -1,6 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{import}
 \usepackage{float}
+\usepackage{url}
 \usepackage{graphicx}
 \usepackage{makeidx}
 \usepackage{listings}
@@ -18,6 +19,11 @@
 
 \tableofcontents
 \clearpage
+
+\import{.}{chapters/introduction.tex}
+\import{.}{chapters/brokers.tex}
+\import{.}{chapters/producers-consumers-topics.tex}
+\import{.}{chapters/zookeeper.tex}
  
 \bibliographystyle{IEEEtran}
 \bibliography{./Bibliography}
