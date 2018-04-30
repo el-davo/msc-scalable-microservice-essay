@@ -1,1 +1,3 @@
 \section{MirrorMaker}
+
+MirrorMaker makes it possible to replicate an entire Kafka cluster. One of the reasons one may chose to do this is to have a cluster for multiple geo-locations. MirrorMaker is little more than a consumer and producer hooked together between clusters. Each topic is read from the origin cluster and written to a topic that has the same name on the target cluster.
