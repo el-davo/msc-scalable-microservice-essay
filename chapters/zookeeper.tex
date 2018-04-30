@@ -2,7 +2,7 @@
 
 Zookeeper is essential in order to run Kafka. The role of Zookeeper in a Kafka cluster is configuration management. 
 	
-Zookeper is a separate service with an exposed API, with clients in many languages. We use the clients to interact with the API. At a high level Zookeeper stores configurations in a tree structure \cite{hunt2010zookeeper}. Each node in the tree is called a ZNode. Clients can connect to Zookeper and watch for configuration changes. An example of a configuration change in Kafka may be that a new leader has been elected. All connected clients would receive this information and act accordingly. In figure \ref{fig:zookeeper-znodes} we see how Kafka can store information in znodes.
+Zookeeper is a separate service with an exposed API, with clients in many languages. We use the clients to interact with the API. At a high-level Zookeeper stores configurations in a tree structure \cite{hunt2010zookeeper}. Each node in the tree is called a ZNode. Clients can connect to Zookeeper and watch for configuration changes. An example of a configuration change in Kafka may be that a new leader has been elected. All connected clients would receive this information and act accordingly. In figure \ref{fig:zookeeper-znodes} we see how Kafka can store information in znodes.
 
 \begin{figure}[H]
   \centering

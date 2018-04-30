@@ -17,7 +17,7 @@ For each raspberry pi node download and unzip Kafka with the command below
   $ tar zxvf kafka_2.12-1.1.0.tgz
 \end{minted}
 
-Next we will need to edit the zookeeper.properties config file. Make sure to do this on each node
+Next, we will need to edit the zookeeper.properties config file. Make sure to do this on each node
 
 \begin{minted}{bash}
   $ cd kafka_2.12-1.1.0/config
@@ -36,7 +36,7 @@ Add the following configurations to the bottom of this file
   server.3=cluster-slave-2:2888:3888
 \end{minted}
 
-Server 1, 2 and 3 are the different raspberry pi nodes. cluster-master, cluster-slave-1 and cluster-slave-2 are the assigned domain names to each of the nodes and port 2888 is the port zookeeper will run on. Next we need to make sure each server knows its own id. This can be achieved by creating a myid file. For each raspberry pi node do the following. 
+Server 1, 2 and 3 are the different raspberry pi nodes. cluster-master, cluster-slave-1, and cluster-slave-2 are the assigned domain names to each of the nodes and port 2888 is the port zookeeper will run on. Next, we need to make sure each server knows its own id. This can be achieved by creating a myid file. For each raspberry pi node do the following. 
 
 \begin{minted}{bash}
   echo 1 > /tmp/zookeeper/myid
@@ -44,13 +44,13 @@ Server 1, 2 and 3 are the different raspberry pi nodes. cluster-master, cluster-
   echo 3 > /tmp/zookeeper/myid
 \end{minted}
 
-Note only one command needs to be run on each node. For example for cluster-master we only need to run 
+Note only one command needs to be run on each node. For example, on cluster-master, we only need to run 
 
 \begin{minted}{bash}
 echo 1 > /tmp/zookeeper/myid
 \end{minted}
 
-Next we need to configure the Kafka server on each node. Run the command below
+Next, we need to configure the Kafka server on each node. Run the command below
 
 \begin{minted}{bash}
   $ nano server.properties
@@ -72,7 +72,7 @@ zookeeper.connect=cluster-master:2181,cluster-slave-1:2181,cluster-slave-2:2181
   \item \textbf{zookeeper.connect} is a comma separated list of every other broker in the cluster
 \end{itemize}
 
-Next we need to edit the \textbf{kafka-server-start.sh} file. This is needed because raspberry pis have limited memory available. With this update the pi will quickly run out of memory \cite{raspberry:pi}
+Next we need to edit the \textbf{kafka-server-start.sh} file. This is needed because raspberry pis have limited memory available. Without this update, the pi will quickly run out of memory \cite{raspberry:pi}
 
 \begin{minted}{bash}
   $ cd ..
@@ -93,7 +93,7 @@ If we have done all the steps mentioned above on each raspberry pi node we are n
   $ nohup ./bin/kafka-server-start.sh config/server.properties &
 \end{minted}
 
-The first command starts zookeeper. The second command starts kafka. Both command should be executed about 30 seconds between each other to give everything a chance to come up. To test that the cluster is up and running we can create a new topic on any of the cluster nodes using the command below.
+The first command starts Zookeeper. The second command starts Kafka. Both commands should be executed about 30 seconds between each other to give everything a chance to come up. To test that the cluster is up and running we can create a new topic on any of the cluster nodes using the command below.
 
 \begin{minted}{bash}
   $ /home/pi/kafka_2.12-1.1.0/bin/kafka-topics.sh --create \
