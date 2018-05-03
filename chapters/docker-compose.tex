@@ -1,12 +1,12 @@
 \section{Docker-compose}
 
-For the purposes of local development we needed a way to easily run a Kafka cluster without the need to go through a lengthy installation process. For this we turned to docker and docker compose. With docker compose it is easy to create a YAML file outlining the docker containers and their connection to each other. Using the docker-compose.yml file below we are able to set up a local Kafka cluster with Zookeeper with a single command.
-
-Note I have created a github repository with all the code below. The repository can be found here \href{https://github.com/el-davo/msc-scaleable-microservices-kafka}{https://github.com/el-davo/msc-scaleable-microservices-kafka}
+For the purposes of local development, we needed a way to easily run a Kafka cluster without the need to go through a lengthy installation process. For this, we turned to docker and docker compose. With docker compose it is easy to create a YAML file outlining the docker containers and their connection to each other. Using the docker-compose.yml file below we are able to set up a local Kafka cluster with Zookeeper with a single command.
 
 \begin{minted}{yaml}
-	$ docker-compose up
+  $ docker-compose up
 \end{minted}
+
+Note I have created a github repository with all the code below. The repository can be found here \href{https://github.com/el-davo/msc-scaleable-microservices-kafka}{https://github.com/el-davo/msc-scaleable-microservices-kafka}
 
 \begin{minted}{yaml}
 version: '3'
@@ -83,4 +83,4 @@ networks:
     kafka-net:
 \end{minted}
 
-The above has been tested on windows 10 Professional with native docker, however it should also work on Linux. We also tried testing this on kitematic however it doesn't seem to work as localhost in kitematic needs to be changed to a specific ip address of the underlying virtualbox host.
+The above has been tested on Windows 10 Professional with native docker, however, it should also work on Linux. We also tried testing this on kitematic however it doesn't seem to work as localhost in kitematic needs to be changed to a specific IP address of the underlying Virtualbox host.
