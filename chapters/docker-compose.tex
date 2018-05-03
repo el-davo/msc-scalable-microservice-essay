@@ -1,0 +1,86 @@
+\section{Docker-compose}
+
+For the purposes of local development we needed a way to easily run a Kafka cluster without the need to go through a lengthy installation process. For this we turned to docker and docker compose. With docker compose it is easy to create a YAML file outlining the docker containers and their connection to each other. Using the docker-compose.yml file below we are able to set up a local Kafka cluster with Zookeeper with a single command.
+
+Note I have created a github repository with all the code below. The repository can be found here \href{https://github.com/el-davo/msc-scaleable-microservices-kafka}{https://github.com/el-davo/msc-scaleable-microservices-kafka}
+
+\begin{minted}{yaml}
+	$ docker-compose up
+\end{minted}
+
+\begin{minted}{yaml}
+version: '3'
+services:
+    zk1:
+        image: "${REGISTRY}wurstmeister/zookeeper:${ZK_TAG:-latest}"
+        ports:
+            - "2181:2181"
+            - "2888:2888"
+            - "3888:3888"
+        networks:
+            - kafka-net
+        environment:
+            ZOOKEEPER_SERVER_ID: 1
+            ZOO_SERVERS: server.1=0.0.0.0:2888:3888
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+            ZOOKEEPER_INIT_LIMIT: 5
+            ZOOKEEPER_SYNC_LIMIT: 2
+            ZOOKEEPER_SERVERS: zk1:2888:3888
+        volumes:
+          - ./zk-multiple-kafka-multiple/zk1/data:/data
+          - ./zk-multiple-kafka-multiple/zk1/datalog:/datalog
+
+    kafka1:
+        deploy:
+            mode: global
+        image: "${REGISTRY}wurstmeister/kafka:${KAFKA_TAG:-latest}"
+        environment:
+          KAFKA_ADVERTISED_HOST_NAME: localhost
+          KAFKA_LISTENERS: PLAINTEXT://:9092
+          KAFKA_ZOOKEEPER_CONNECT: zk1:2181
+          KAFKA_HEAP_OPTS: -Xmx256M -Xms128M
+        networks:
+          - kafka-net
+        ports:
+          - 9092:9092
+        volumes:
+          - ./zk-multiple-kafka-multiple/kafka1/data:/var/lib/kafka/data
+
+    kafka2:
+      deploy:
+        mode: global
+      image: "${REGISTRY}wurstmeister/kafka:${KAFKA_TAG:-latest}"
+      environment:
+        KAFKA_ADVERTISED_HOST_NAME: localhost
+        KAFKA_LISTENERS: PLAINTEXT://:9093
+        KAFKA_ZOOKEEPER_CONNECT: zk1:2181
+        KAFKA_HEAP_OPTS: -Xmx256M -Xms128M
+      networks:
+        - kafka-net
+      ports:
+        - 9093:9092
+      volumes:
+        - ./zk-multiple-kafka-multiple/kafka2/data:/var/lib/kafka/data
+
+    kafka3:
+      deploy:
+        mode: global
+      image: "${REGISTRY}wurstmeister/kafka:${KAFKA_TAG:-latest}"
+      environment:
+        KAFKA_ADVERTISED_HOST_NAME: localhost
+        KAFKA_LISTENERS: PLAINTEXT://:9093
+        KAFKA_ZOOKEEPER_CONNECT: zk1:2181
+        KAFKA_HEAP_OPTS: -Xmx256M -Xms128M
+      networks:
+        - kafka-net
+      ports:
+        - 9094:9092
+      volumes:
+        - ./zk-multiple-kafka-multiple/kafka3/data:/var/lib/kafka/data
+
+networks:
+    kafka-net:
+\end{minted}
+
+The above has been tested on windows 10 Professional with native docker, however it should also work on Linux. We also tried testing this on kitematic however it doesn't seem to work as localhost in kitematic needs to be changed to a specific ip address of the underlying virtualbox host.

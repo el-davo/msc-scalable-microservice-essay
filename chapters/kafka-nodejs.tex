@@ -1,0 +1,47 @@
+\section{Kafka with NodeJS}
+
+For the purpose of this paper we wanted to create a tiny application that sends a message to the Kafka cluster and another small application that listens to topics. The language I chose was NodeJS. In particular we are utilizing this library from the NPM registry https://www.npmjs.com/package/kafka-node. This provides an easy to use API client. Our producer application code is outlined below
+
+\begin{minted}{javascript}
+let kafka = require('kafka-node');
+
+const client = new kafka.KafkaClient({kafkaHost: 'localhost:9092'});
+const Producer = kafka.Producer;
+const producer = new Producer(client);
+const KeyedMessage = kafka.KeyedMessage;
+
+producer.on('ready', () => {
+    const keyedMessage = new KeyedMessage('key', 'Ahoy!!');
+    const payloads = [
+        {topic: 'my-test', messages: 'hi', partition: 0},
+        {topic: 'my-test', messages: ['hello', 'world', keyedMessage]}
+    ];
+
+    producer.send(payloads, (err, data) => {
+        if (err) {
+            console.error(err);
+        }
+        console.log(data);
+    });
+});
+
+producer.on('error', (err) => {
+    console.error(err);
+});
+\end{minted}
+
+Firstly we create a new KafkaClient and give it the host name and port of our running Kafka cluster. We then connect to the cluster. If connection was successful we create a new topic called my-test. We then send two messages to the topic. For our consumer we used the code below.
+
+\begin{minted}{javascript}
+const kafka = require('kafka-node');
+const Consumer = kafka.Consumer;
+const client = new kafka.KafkaClient({kafkaHost: 'localhost:9092'});
+const consumer = new Consumer(client, [{topic: 'my-test', partition: 0}], {autoCommit: false});
+
+consumer.on('message', function (message) {
+    console.log('Got a message');
+    console.log(message);
+});
+\end{minted}
+
+Again we create a KafkaClient and connect to the cluster on localhost:9092. Notice that we  create a new Consumer which is listening to the same topic 'my-test'. Any messages sent by the producer script will be picked up by the consumer script. Make sure to run the producer script first as the consumer will throw an error if the topic does not exist.
